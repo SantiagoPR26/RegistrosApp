@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp"
+    android:backgroundTint="@color/light_grey">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- Imagen del evento -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/eventImageCard"
+            android:layout_width="130dp"
+            android:layout_height="90dp"
+            app:cardCornerRadius="12dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <ImageView
+                android:id="@+id/eventImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                tools:src="@color/purple_200" />
+        </androidx.cardview.widget.CardView>
+
+        <!-- Nombre del evento -->
+        <TextView
+            android:id="@+id/eventNameText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/nombre_del_evento"
+            style="@style/CardTextStyleEventos"
+            app:layout_constraintStart_toEndOf="@id/eventImageCard"
+            app:layout_constraintTop_toTopOf="@id/eventImageCard"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Línea divisora -->
+        <View
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:background="@color/orange"
+            app:layout_constraintEnd_toEndOf="@+id/eventNameText"
+            app:layout_constraintStart_toStartOf="@id/eventNameText"
+            app:layout_constraintTop_toBottomOf="@+id/eventNameText" />
+
+        <!-- Fecha -->
+        <ImageView
+            android:id="@+id/dateIcon"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/calendar"
+            app:layout_constraintStart_toStartOf="@id/eventNameText"
+            app:layout_constraintTop_toBottomOf="@id/eventNameText" />
+
+        <TextView
+            android:id="@+id/dateText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            style="@style/CardTextStyleEventosInfo"
+            app:layout_constraintStart_toEndOf="@id/dateIcon"
+            app:layout_constraintTop_toTopOf="@id/dateIcon"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="" />
+
+        <!-- Ciudad -->
+        <ImageView
+            android:id="@+id/cityIcon"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_marginTop="4dp"
+            android:src="@drawable/city"
+            app:layout_constraintStart_toStartOf="@id/dateIcon"
+            app:layout_constraintTop_toBottomOf="@id/dateIcon" />
+
+        <TextView
+            android:id="@+id/cityText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            style="@style/CardTextStyleEventosInfo"
+            app:layout_constraintStart_toEndOf="@id/cityIcon"
+            app:layout_constraintTop_toTopOf="@id/cityIcon"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="" />
+
+        <!-- Lugar -->
+        <ImageView
+            android:id="@+id/placeIcon"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_marginTop="4dp"
+            android:src="@drawable/location"
+            app:layout_constraintStart_toStartOf="@id/cityIcon"
+            app:layout_constraintTop_toBottomOf="@id/cityIcon" />
+
+        <TextView
+            android:id="@+id/placeText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            style="@style/CardTextStyleEventosInfo"
+            app:layout_constraintStart_toEndOf="@id/placeIcon"
+            app:layout_constraintTop_toTopOf="@id/placeIcon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>
