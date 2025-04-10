@@ -118,11 +118,11 @@ class LecturaManillaActivity : AppCompatActivity(), NfcAdapter.ReaderCallback {
     }
 
     private fun setupButton() {
-        binding.btnRegistrar.text = getString(R.string.escanear)
+        binding.btnRegistrar.text = getString(R.string.registrar)
         binding.btnRegistrar.setOnClickListener {
             when {
                 viewModel.codigoNFC.value == null -> {
-                    // Modo escaneo
+                    // Modo escaneo inicial
                     nfcAdapter?.let { adapter ->
                         if (adapter.isEnabled) {
                             viewModel.startNfcReading()
@@ -131,19 +131,16 @@ class LecturaManillaActivity : AppCompatActivity(), NfcAdapter.ReaderCallback {
                         }
                     }
                 }
-                binding.containerLocalidades.visibility != View.VISIBLE -> {
-                    // Mostrar selección de localidad después del escaneo
-                    binding.containerLocalidades.visibility = View.VISIBLE
-                    binding.btnRegistrar.text = getString(R.string.escanear)
+                binding.LocalidadRadioGroup.checkedRadioButtonId == -1 -> {
+                    Toast.makeText(this, "Seleccione una localidad", Toast.LENGTH_SHORT).show()
                 }
                 else -> {
-                    // Registrar acceso con la localidad seleccionada
-                    val selectedId = binding.LocalidadRadioGroup.checkedRadioButtonId
-                    if (selectedId == -1) {
-                        Toast.makeText(this, "Seleccione una localidad", Toast.LENGTH_SHORT).show()
-                        return@setOnClickListener
-                    }
+                    binding.btnRegistrar.visibility = View.VISIBLE
+                    binding.containerLocalidades.visibility = View.GONE
+                    binding.progressBar.visibility = View.VISIBLE
+                    binding.darkBackground.visibility = View.VISIBLE
 
+                    val selectedId = binding.LocalidadRadioGroup.checkedRadioButtonId
                     val localidadId = when (selectedId) {
                         R.id.RadioButton1 -> 1L
                         R.id.RadioButton2 -> 2L
@@ -152,7 +149,6 @@ class LecturaManillaActivity : AppCompatActivity(), NfcAdapter.ReaderCallback {
                         else -> 0L
                     }
 
-                    // Aquí pasas el eventoId que manejas manualmente
                     viewModel.crearAcceso(eventoId, localidadId)
                 }
             }
@@ -163,11 +159,11 @@ class LecturaManillaActivity : AppCompatActivity(), NfcAdapter.ReaderCallback {
         binding.btnLimpiar.setOnClickListener {
             viewModel.resetData()
             binding.materialCardView.visibility = View.GONE
-            binding.etNumeroManilla.visibility = View.GONE
+            binding.tvManilla.visibility = View.GONE
+            binding.cardInfoRegistrada.visibility = View.GONE
             binding.btnLimpiar.visibility = View.GONE
-            binding.btnRegistrar.text = getString(R.string.escanear)
+            binding.btnRegistrar.text = getString(R.string.registrar)
             binding.btnRegistrar.visibility = View.VISIBLE
-            binding.etNumeroManilla.text?.clear()
             globalDataViewModel.setManillaId(null)
         }
     }
@@ -178,7 +174,7 @@ class LecturaManillaActivity : AppCompatActivity(), NfcAdapter.ReaderCallback {
             binding.materialCardView.visibility = View.GONE
             binding.etNumeroManilla.visibility = View.GONE
             binding.btnLimpiar.visibility = View.GONE
-            binding.btnRegistrar.text = getString(R.string.escanear)
+            binding.btnRegistrar.text = getString(R.string.registrar)
             binding.etNumeroManilla.text?.clear()
             globalDataViewModel.setManillaId(null)
 
@@ -205,8 +201,15 @@ class LecturaManillaActivity : AppCompatActivity(), NfcAdapter.ReaderCallback {
         viewModel.codigoNFC.observe(this) { codigo ->
             codigo?.let {
                 globalDataViewModel.setManillaId(it)
-                binding.etNumeroManilla.setText(it)
-                binding.etNumeroManilla.visibility = View.VISIBLE
+                binding.apply {
+                    tvManilla.setText(it)
+                    materialCardView.visibility = View.VISIBLE
+                    containerLocalidades.visibility = View.VISIBLE
+                    btnRegistrar.text = getString(R.string.registrar)
+                    btnRegistrar.visibility = View.VISIBLE
+                    btnLimpiar.visibility = View.VISIBLE
+                }
+
             }
         }
 
@@ -234,6 +237,12 @@ class LecturaManillaActivity : AppCompatActivity(), NfcAdapter.ReaderCallback {
             binding.tvLocalidad.text = localidad
         }
 
+        viewModel.isLoading.observe(this) { isLoading ->
+            binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+            binding.btnRegistrar.isEnabled = !isLoading
+            binding.containerLocalidades.visibility = View.GONE
+            binding.materialCardView.visibility = View.GONE
+        }
 
     }
 
@@ -245,6 +254,8 @@ class LecturaManillaActivity : AppCompatActivity(), NfcAdapter.ReaderCallback {
             // Ocultar elementos innecesarios
             containerLocalidades.visibility = View.GONE
             materialCardView.visibility = View.GONE
+            darkBackground.visibility = View.GONE
+            progressBar.visibility = View.GONE
 
             // Actualizar botones
             btnRegistrar.visibility = View.GONE
@@ -267,7 +278,7 @@ class LecturaManillaActivity : AppCompatActivity(), NfcAdapter.ReaderCallback {
         binding.apply {
             materialCardView.visibility = View.VISIBLE
             tvManilla.text = globalDataViewModel.manillaId.value ?: "N/A"
-            btnRegistrar.visibility = View.GONE
+            btnRegistrar.visibility = View.VISIBLE
             btnLimpiar.visibility = View.VISIBLE
         }
     }
@@ -279,6 +290,11 @@ class LecturaManillaActivity : AppCompatActivity(), NfcAdapter.ReaderCallback {
             darkBackground.visibility = if (show) View.VISIBLE else View.GONE
             if (show) tvLoadingMessage.text = getString(R.string.acercar_manilla)
         }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+        binding.darkBackground.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     private fun checkNfcStatus() {

@@ -7,7 +7,7 @@ import retrofit2.http.Path
 
 interface UsuariosATApiService {
 
-    @GET("/admin/{pId}")
+    @GET("admin/{pId}")
     suspend fun getUsuario(@Path("pId") pId: String): Response<Cliente>
 
 }

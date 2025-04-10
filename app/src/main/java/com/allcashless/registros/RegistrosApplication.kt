@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.ViewModelStoreOwner
-import com.allcashless.recargasallcashless.utils.SessionManager
+import com.allcashless.registros.util.SessionManager
 import com.allcashless.registros.viewmodel.GlobalDataViewModel
 
 class RegistrosApplication: Application(), ViewModelStoreOwner {

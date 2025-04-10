@@ -10,8 +10,8 @@ class AccesosRepository(private val service: AccesosApiService = RetrofitClient.
 
     suspend fun crearAcceso(codigoNFC: String,
                             eventoId: Long,
-                            localidad: Long): Response<Acceso> {
-        return service.crearAcceso(codigoNFC, eventoId, localidad)
+                            localidadId: Long): Response<Acceso> {
+        return service.crearAcceso(codigoNFC, eventoId, localidadId)
     }
 
 

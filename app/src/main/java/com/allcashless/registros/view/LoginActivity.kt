@@ -136,10 +136,10 @@ class LoginActivity : AppCompatActivity() {
                             startActivity(Intent(this@LoginActivity, EventosActivity::class.java))
                             finish()
                         } else {
-                            Toast.makeText(this@LoginActivity, "No se pudo obtener el coordinador", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@LoginActivity, "No se pudo obtener el administrador", Toast.LENGTH_SHORT).show()
                         }
                     } catch (e: Exception) {
-                        Log.e("LoginActivity", "Exception in fetch Coordinador: ${e.message}")
+                        Log.e("LoginActivity", "Exception in fetch Admin: ${e.message}")
                         Toast.makeText(this@LoginActivity, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
                     }
                 }

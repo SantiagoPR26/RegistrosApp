@@ -20,17 +20,49 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RegistrosAllCashless.NoActionBar.Light"
         tools:targetApi="31">
+        <!-- Pantalla de carga, modo claro y orientación en portrait -->
         <activity
-            android:name=".MainActivity"
+            android:name=".view.PantallaDeCarga"
             android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.Registros">
+            android:forceDarkAllowed="false"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Login, modo claro y orientación en portrait -->
+        <activity
+            android:name=".view.LoginActivity"
+            android:exported="false"
+            android:forceDarkAllowed="false"
+            android:screenOrientation="portrait" />
+
+        <!-- Eventos, modo claro y orientación en portrait -->
+        <activity
+            android:name=".view.EventosActivity"
+            android:exported="true"
+            android:forceDarkAllowed="false"
+            android:screenOrientation="portrait" />
+
+        <!-- Lectura manilla, modo claro y orientación en portrait -->
+        <activity
+            android:name=".view.LecturaManillaActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:forceDarkAllowed="false">
+            <!-- Agregar este intent-filter para que la app se abra al escanear NFC -->
+            <intent-filter>
+                <action android:name="android.nfc.action.TAG_DISCOVERED" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.nfc.action.TAG_DISCOVERED"
+                android:resource="@xml/nfc_tech_filter" />
+
+        </activity>
+
     </application>
 
 </manifest>

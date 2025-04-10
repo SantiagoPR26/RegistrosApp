@@ -12,7 +12,7 @@ interface AccesosApiService {
     @POST("acreditaciones/acreditaciones/crear/{codigoNFC}")
     suspend fun crearAcceso(@Path("codigoNFC") codigoNFC: String,
                                   @Query("pId") pId: Long,
-                            @Query("localidad") localidad: Long): Response<Acceso>
+                            @Query("localidadId") localidadId: Long): Response<Acceso>
 
 
 }

@@ -23,6 +23,9 @@ class LecturaManillaViewModel : ViewModel() {
     private val _error = MutableLiveData<String?>()
     val error: LiveData<String?> = _error
 
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> = _isLoading
+
     private val _showCard = MutableLiveData<Boolean>(false)
     val showCard: LiveData<Boolean> = _showCard
 
@@ -106,23 +109,23 @@ class LecturaManillaViewModel : ViewModel() {
                 val response = accesosRepository.crearAcceso(
                     codigoNFC = codigoNFC,
                     eventoId = eventoId,
-                    localidad = localidadId
+                    localidadId = localidadId
                 )
 
                 if (response.isSuccessful) {
                     val acceso = response.body()
                     _manillaRegistrada.value = acceso?.codigoNFC
                     _localidadRegistrada.value  = acceso?.localidad?.nombre
-                    _accessCreated.value = true
+                    _registroExitoso.value = true
                 } else {
                     _error.value = "Error al crear acceso: ${response.message()}"
-                    _accessCreated.value = false
+                    _registroExitoso.value = false
                 }
             } catch (e: Exception) {
                 _error.value = "Error de conexión: ${e.message}"
-                _accessCreated.value = false
+                _registroExitoso.value = false
             } finally {
-                _isCreatingAccess.value = false
+                _registroExitoso.value = false
             }
         }
     }

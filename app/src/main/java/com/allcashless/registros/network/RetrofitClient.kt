@@ -11,9 +11,9 @@ import kotlin.apply
 import kotlin.jvm.java
 
 object RetrofitClient{
-    internal const val BASE_URL = "http://192.168.0.8:8090/api/"
+    internal const val BASE_URL = "http://192.168.1.2:8090/api/"
     internal const val EVENTO_AT_BASE_URL = "https://back2.allticketscol.com/api/eventos/"
-    internal const val USUARIOS_AT_BASE_URL = "https://back.allticketscol.com/api/usuarios"
+    internal const val USUARIOS_AT_BASE_URL = "https://back.allticketscol.com/api/usuarios/"
 
 
     private val authInterceptor = Interceptor { chain ->

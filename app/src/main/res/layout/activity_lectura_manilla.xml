@@ -7,6 +7,19 @@
     android:layout_height="match_parent"
     tools:context=".view.LecturaManillaActivity">
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:elevation="12dp"
+        android:indeterminate="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <!-- Capa de fondo oscuro -->
     <View
         android:id="@+id/darkBackground"
@@ -318,32 +331,31 @@
             style="@style/RecargarButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
             android:padding="8dp"
-            android:text="@string/escanear"
+            android:text="@string/registrar"
             app:backgroundTint="@color/blue"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.526"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/containerLocalidades" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnLimpiar"
-            style="@style/CancelarButtonStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/limpiar"
-            android:visibility="gone"
-            app:backgroundTint="@color/white"
-            app:layout_constraintEnd_toEndOf="@+id/container2"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:strokeColor="@color/blue"
-            app:strokeWidth="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/cardInfoRegistrada" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnLimpiar"
+        style="@style/CancelarButtonStyle"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="@string/limpiar"
+        android:visibility="gone"
+        app:backgroundTint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/container2"
+        app:strokeColor="@color/blue"
+        app:strokeWidth="1dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

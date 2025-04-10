@@ -8,9 +8,9 @@ import com.allcashless.registros.models.Evento
 import com.allcashless.registros.repositories.AdminisitradorRepository
 import kotlinx.coroutines.launch
 
-class EventosViewModel(
-    private val repository: AdminisitradorRepository
-) : ViewModel() {
+class EventosViewModel() : ViewModel() {
+
+    private val repository = AdminisitradorRepository()
 
     private val _evento = MutableLiveData<Evento>()
     val evento: LiveData<Evento> = _evento
