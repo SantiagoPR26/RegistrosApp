@@ -102,11 +102,9 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/lato_regular"
             android:gravity="start"
-            android:text="@string/realiza_la_lectura_de_la_manilla"
             android:textColor="@color/blue"
-            android:textSize="18sp"
-
-            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="16sp"
+            tools:text="Realiza la lectura del brazalete para la localidad GENERAL"            app:layout_constraintTop_toTopOf="parent"
             tools:layout_editor_absoluteX="26dp" />
 
         <!-- Input de manilla-->
@@ -146,19 +144,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
             android:visibility="gone"
             app:cardBackgroundColor="@color/light_grey"
             app:cardCornerRadius="12dp"
             app:cardElevation="5dp"
-            app:layout_constraintTop_toBottomOf="@+id/materialCardView2"
-            tools:layout_editor_absoluteX="26dp">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/materialCardView2">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp"
-                >
+                android:padding="16dp">
 
                 <!-- Información de Manilla -->
                 <LinearLayout
@@ -167,10 +167,10 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        style="@style/CardTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
-                        style="@style/CardTextStyle"
                         android:text="@string/manilla" />
 
                     <TextView
@@ -185,74 +185,41 @@
         </com.google.android.material.card.MaterialCardView>
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/containerLocalidades"
+        <!-- Card Info - Versión modificada -->
+
+        <LinearLayout
+            android:id="@+id/errorContainer"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            android:orientation="vertical"
             android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/materialCardView">
+            app:layout_constraintTop_toBottomOf="@+id/textView">
+
+            <ImageView
+                android:id="@+id/ivErrorIcon"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:contentDescription=""
+                android:src="@drawable/ic_alert_outline" />
 
             <TextView
-                android:id="@+id/textView5"
-                style="@style/LabelsTextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="12dp"
-                android:text="@string/seleccion_metodo_pago"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <RadioGroup
-                android:id="@+id/LocalidadRadioGroup"
-
-                android:layout_width="300dp"
+                android:id="@+id/tvError"
+                style="@style/CardTextStyleCarritoDatos"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:orientation="vertical"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView5">
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:text="@string/brazalate_no_pertenece"
+                android:textColor="@color/blue"
+                android:textSize="18sp" />
+        </LinearLayout>
 
-                <RadioButton
-                    android:id="@+id/RadioButton1"
-                    style="@style/CustomRadioButtonStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:text="GENERAL" />
-
-                <RadioButton
-                    android:id="@+id/RadioButton2"
-                    style="@style/CustomRadioButtonStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:text="VIP" />
-
-                <RadioButton
-                    android:id="@+id/RadioButton3"
-                    style="@style/CustomRadioButtonStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:text="BACKSTAGE" />
-
-                <RadioButton
-                    android:id="@+id/RadioButton4"
-                    style="@style/CustomRadioButtonStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:text="ARTISTAS" />
-
-            </RadioGroup>
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <!-- Card Info - Versión modificada -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardInfoRegistrada"
             style="@style/CustomMarginStyle"
@@ -263,6 +230,9 @@
             app:cardBackgroundColor="@color/light_grey"
             app:cardCornerRadius="12dp"
             app:cardElevation="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/materialCardView2">
 
             <LinearLayout
@@ -275,27 +245,27 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginBottom="20dp">
+                    android:layout_marginBottom="20dp"
+                    android:orientation="vertical">
 
                     <TextView
+                        style="@style/CardTextStyleEventos"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        style="@style/CardTextStyleEventos"
+                        android:gravity="center"
                         android:text="@string/brazalete"
                         android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:gravity="center"/>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/tvManilla2"
+                        style="@style/CardTextStyleCarritoDatos"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="24sp"
-                        style="@style/CardTextStyleCarritoDatos"
-                        android:textStyle="bold"
+                        android:layout_marginTop="8dp"
                         android:gravity="center"
-                        android:layout_marginTop="8dp"/>
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <!-- Localidad - Vertical (se mantiene igual) -->
@@ -305,57 +275,59 @@
                     android:orientation="vertical">
 
                     <TextView
+                        style="@style/CardTextStyleEventos"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        style="@style/CardTextStyleEventos"
+                        android:gravity="center"
                         android:text="@string/localidad"
                         android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:gravity="center"/>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/tvLocalidad"
+                        style="@style/CardTextStyleCarritoDatos"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="24sp"
-                        style="@style/CardTextStyleCarritoDatos"
-                        android:textStyle="bold"
+                        android:layout_marginTop="8dp"
                         android:gravity="center"
-                        android:layout_marginTop="8dp"/>
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnRegistrar"
-            style="@style/RecargarButtonStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:padding="8dp"
-            android:text="@string/registrar"
-            app:backgroundTint="@color/blue"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.526"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/containerLocalidades" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnLimpiar"
         style="@style/CancelarButtonStyle"
-        android:layout_width="360dp"
-        android:layout_height="wrap_content"
+        android:layout_width="320dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
         android:padding="8dp"
         android:text="@string/limpiar"
         android:visibility="gone"
         app:backgroundTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/container2"
         app:strokeColor="@color/blue"
         app:strokeWidth="1dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnRegistrar"
+        style="@style/RecargarButtonStyle"
+        android:layout_width="320dp"
+        android:layout_height="50dp"
+        android:padding="8dp"
+        android:text="@string/registrar"
+        app:backgroundTint="@color/blue"
+        app:layout_constraintEnd_toEndOf="@+id/container2"
+        app:layout_constraintStart_toStartOf="@+id/container2"
+        app:layout_constraintTop_toBottomOf="@+id/container2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

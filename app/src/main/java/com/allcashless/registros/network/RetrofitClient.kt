@@ -11,10 +11,10 @@ import kotlin.apply
 import kotlin.jvm.java
 
 object RetrofitClient{
-    internal const val BASE_URL = "http://192.168.1.2:8090/api/"
+    internal const val BASE_URL = "http://192.168.0.5:8090/api/"
     internal const val EVENTO_AT_BASE_URL = "https://back2.allticketscol.com/api/eventos/"
     internal const val USUARIOS_AT_BASE_URL = "https://back.allticketscol.com/api/usuarios/"
-
+    internal const val AUTH_AT_BASE_URL = "https://back.allticketscol.com/api/security/"
 
     private val authInterceptor = Interceptor { chain ->
         val token = SessionManager.getToken()
@@ -28,10 +28,15 @@ object RetrofitClient{
         level = HttpLoggingInterceptor.Level.BODY
     }
 
+    private val authOkHttpClient = OkHttpClient.Builder()
+        .addInterceptor(loggingInterceptor)
+        .build()
+
     private val okHttpClient = OkHttpClient.Builder()
         .addInterceptor(authInterceptor)
         .addInterceptor(loggingInterceptor)
         .build()
+
 
     private val retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
@@ -51,12 +56,19 @@ object RetrofitClient{
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
+    private val retrofitAuthAT = Retrofit.Builder()
+        .baseUrl(AUTH_AT_BASE_URL)
+        .client(authOkHttpClient)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+
+
 
 
     val accesosApiService: AccesosApiService = retrofit.create(AccesosApiService::class.java)
     val recargasApiService: RecargasApiService = retrofit.create(RecargasApiService::class.java)
     val eventoATApiService: EventoATApiService = retrofitEventoAT.create(EventoATApiService::class.java)
     val usuarioATApiService: UsuariosATApiService = retrofitUsuarioAT.create(UsuariosATApiService::class.java)
-    val oauthApiService: OauthApiService = retrofit.create(OauthApiService::class.java)
+    val oauthApiService: OauthApiService = retrofitAuthAT.create(OauthApiService::class.java)
 
 }

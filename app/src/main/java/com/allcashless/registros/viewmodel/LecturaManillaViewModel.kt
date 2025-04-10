@@ -14,45 +14,34 @@ import kotlinx.coroutines.launch
 
 class LecturaManillaViewModel : ViewModel() {
 
+    // Estados para NFC
     private val _isReadingNfc = MutableLiveData<Boolean>(false)
     val isReadingNfc: LiveData<Boolean> = _isReadingNfc
 
+    // Datos del brazalete
     private val _codigoNFC = MutableLiveData<String?>(null)
     val codigoNFC: LiveData<String?> = _codigoNFC
 
-    private val _error = MutableLiveData<String?>()
-    val error: LiveData<String?> = _error
-
-    private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading: LiveData<Boolean> = _isLoading
-
-    private val _showCard = MutableLiveData<Boolean>(false)
-    val showCard: LiveData<Boolean> = _showCard
-
-    private val _isCreatingAccess = MutableLiveData<Boolean>(false)
-    val isCreatingAccess: LiveData<Boolean> = _isCreatingAccess
-
-    private val _accessCreated = MutableLiveData<Boolean?>(null)
-    val accessCreated: LiveData<Boolean?> = _accessCreated
-
-    private val _manillaRegistrada = MutableLiveData<String?>(null)
-    val manillaRegistrada: LiveData<String?> = _manillaRegistrada
-
+    // Estados del registro
     private val _registroExitoso = MutableLiveData<Boolean>(false)
     val registroExitoso: LiveData<Boolean> = _registroExitoso
 
-    private val _localidadRegistrada = MutableLiveData<String?>(null)
-    val localidadRegistrada: LiveData<String?> = _localidadRegistrada
+    // Datos para mostrar en la card
+    private val _manillaRegistrada = MutableLiveData<String>()
+    val manillaRegistrada: LiveData<String> = _manillaRegistrada
+
+    private val _localidadRegistrada = MutableLiveData<String>()
+    val localidadRegistrada: LiveData<String> = _localidadRegistrada
+
+    // Estados de error y carga
+    private val _error = MutableLiveData<String?>()
+    val error: LiveData<String?> = _error
+
+    private val _isLoading = MutableLiveData<Boolean>(false)
+    val isLoading: LiveData<Boolean> = _isLoading
 
     private var timeoutJob: Job? = null
     private val accesosRepository = AccesosRepository()
-
-    private val localidadesMap = mapOf(
-        "GENERAL" to 1L,
-        "VIP" to 2L,
-        "BACKSTAGE" to 3L,
-        "ARTISTAS" to 4L
-    )
 
     fun startNfcReading() {
         _isReadingNfc.value = true
@@ -68,13 +57,54 @@ class LecturaManillaViewModel : ViewModel() {
     fun handleNfcTag(id: String) {
         stopNfcReading()
         _codigoNFC.value = id
-        _showCard.value = true
+    }
+
+    fun crearAcceso(eventoId: Long, localidadId: Long) {
+        val codigo = _codigoNFC.value ?: run {
+            _error.value = "No se ha escaneado ningún brazalete"
+            return
+        }
+
+        _isLoading.value = true
+        _error.value = null
+
+        viewModelScope.launch {
+            try {
+                val response = accesosRepository.crearAcceso(
+                    codigoNFC = codigo,
+                    eventoId = eventoId,
+                    localidadId = localidadId
+                )
+
+                if (response.isSuccessful) {
+                    _manillaRegistrada.value = codigo
+                    _localidadRegistrada.value = getNombreLocalidad(localidadId)
+                    _registroExitoso.value = true
+                } else {
+                    _error.value = "Error al registrar: ${response.message()}"
+                }
+            } catch (e: Exception) {
+                _error.value = "Error de conexión: ${e.message}"
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+
+    private fun getNombreLocalidad(localidadId: Long): String {
+        return when(localidadId) {
+            1L -> "GENERAL"
+            2L -> "VIP"
+            3L -> "BACKSTAGE"
+            4L -> "ARTISTAS"
+            else -> "Localidad $localidadId"
+        }
     }
 
     fun resetData() {
         _codigoNFC.value = null
         _error.value = null
-        _showCard.value = false
+        _registroExitoso.value = false
         _isReadingNfc.value = false
     }
 
@@ -83,49 +113,7 @@ class LecturaManillaViewModel : ViewModel() {
             delay(20000)
             if (_isReadingNfc.value == true) {
                 stopNfcReading()
-                _error.value = "Tiempo de lectura agotado"
-            }
-        }
-    }
 
-    fun crearAcceso(eventoId: Long, localidadId: Long) {
-        val codigoNFC = _codigoNFC.value
-
-        if (codigoNFC == null || codigoNFC.isEmpty()) {
-            _error.value = "No se ha escaneado ningún brazalete"
-            return
-        }
-
-        if (localidadId == 0L) {
-            _error.value = "Seleccione una localidad válida"
-            return
-        }
-
-        _isCreatingAccess.value = true
-        _error.value = null
-
-        viewModelScope.launch {
-            try {
-                val response = accesosRepository.crearAcceso(
-                    codigoNFC = codigoNFC,
-                    eventoId = eventoId,
-                    localidadId = localidadId
-                )
-
-                if (response.isSuccessful) {
-                    val acceso = response.body()
-                    _manillaRegistrada.value = acceso?.codigoNFC
-                    _localidadRegistrada.value  = acceso?.localidad?.nombre
-                    _registroExitoso.value = true
-                } else {
-                    _error.value = "Error al crear acceso: ${response.message()}"
-                    _registroExitoso.value = false
-                }
-            } catch (e: Exception) {
-                _error.value = "Error de conexión: ${e.message}"
-                _registroExitoso.value = false
-            } finally {
-                _registroExitoso.value = false
             }
         }
     }

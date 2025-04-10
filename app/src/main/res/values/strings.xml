@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Registros AllCashless</string>
     <string name="title_activity_lector_manilla">LectorManilla</string>
+    <string name="realiza_lectura_manilla_localidad">Realiza la lectura del brazalete para la localidad "%1$s"</string>
     <string name="manilla">Brazalete:</string>
     <string name="manilla_carrito">Brazalete</string>
     <string name="recargar">Recargar</string>
@@ -8,11 +9,12 @@
     <string name="login">Iniciar Sesión</string>
     <string name="cancelar">Cancelar</string>
     <string name="limpiar">Cancelar</string>
+    <string name="escanear">Escanear</string>
     <string name="realiza_la_lectura_de_la_manilla">Realiza la lectura del brazalete</string>
     <string name="carrito">Confirma tu recarga</string>
     <string name="n_de_manilla">Número de brazalete</string>
     <string name="dinero_recargar">Dinero a recargar</string>
-    <string name="seleccion_metodo_pago">Selecciona una localidad</string>
+    <string name="seleccion_metodo_pago">Selecciona una localidad para registrar los brazaletes</string>
     <string name="back">Back</string>
     <string name="confirmar">Confirmar!</string>
     <string name="acercar_manilla">Acerca el brazalete al dispositivo…</string>
@@ -44,5 +46,10 @@
     <string name="no_hay_eventos_disponibles">No hay eventos disponible</string>
     <string name="localidad">Localidad</string>
     <string name="ErrorManilla">El brazalete escaneado no pertenece a este evento</string>
-    <string name="brazalate_no_pertenece">El brazalete escaneado no pertenece a este evento</string>
+    <string name="brazalate_no_pertenece">El brazalete escaneado ya esta registrado</string>
+    <string name="localidad_general">GENERAL</string>
+    <string name="localidad_vip">VIP</string>
+    <string name="localidad_backstage">BACKSTAGE</string>
+    <string name="localidad_artistas">ARTISTAS</string>
+    <string name="localidad_desconocida">DESCONOCIDA</string>
 </resources>

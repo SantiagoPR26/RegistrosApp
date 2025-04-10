@@ -11,7 +11,7 @@ import retrofit2.http.POST
 interface OauthApiService {
 
     //AUTENTICACION
-    @POST("security/oauth/token")
+    @POST("oauth/token")
     suspend fun login(
         @Header("Authorization") authorization: String,
         @Body params: RequestBody

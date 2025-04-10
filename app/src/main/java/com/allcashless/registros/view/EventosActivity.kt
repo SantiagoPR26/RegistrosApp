@@ -53,7 +53,7 @@ class EventosActivity : AppCompatActivity() {
         eventosAdapter = EventosAdapter { evento ->
             // Cuando se hace clic en un evento
             globalDataViewModel.setEvento(evento)
-            navigateToLecturaManillaActivity(1157)
+            navigateToSelectorLocalidadActivity(evento.id)
         }
 
         binding.recyclerViewEventos?.apply {
@@ -98,8 +98,9 @@ class EventosActivity : AppCompatActivity() {
     }
 
     // Función para navegar a LecturaManillaActivity
-    private fun navigateToLecturaManillaActivity(eventoId: Long) {
-        val intent = Intent(this, LecturaManillaActivity::class.java).apply {
+    private fun navigateToSelectorLocalidadActivity(eventoId: Long) {
+        // Cambia esto para navegar a SelectorLocalidadActivity
+        val intent = Intent(this, SelectorLocalidadActivity::class.java).apply {
             putExtra("eventoId", eventoId)
         }
         startActivity(intent)
