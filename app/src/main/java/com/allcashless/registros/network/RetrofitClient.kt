@@ -11,6 +11,7 @@ import kotlin.apply
 import kotlin.jvm.java
 
 object RetrofitClient{
+    internal const val BASE_URL_LOCAL = "http://192.168.0.3:8090/api/"
     internal const val BASE_URL = "http://back.allcashlesscol.com/api/acreditaciones/"
     internal const val EVENTO_AT_BASE_URL = "https://back2.allticketscol.com/api/eventos/"
     internal const val USUARIOS_AT_BASE_URL = "https://back.allticketscol.com/api/usuarios/"

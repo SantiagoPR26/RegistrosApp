@@ -34,15 +34,19 @@ class LecturaManillaActivity : AppCompatActivity(), NfcAdapter.ReaderCallback {
     private var nfcAdapter: NfcAdapter? = null
     private var localidadId: Long = -1L
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putLong("localidadId", localidadId) // Guardamos el ID de la localidad
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLecturaManillaBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        localidadId = intent.getLongExtra("localidadId", -1L)
+        localidadId = savedInstanceState?.getLong("localidadId") ?: intent.getLongExtra("localidadId", -1L)
 
         if (localidadId == -1L) {
-            Toast.makeText(this, "Error: Datos no válidos", Toast.LENGTH_LONG).show()
             finish()
             return
         }
@@ -164,7 +168,7 @@ class LecturaManillaActivity : AppCompatActivity(), NfcAdapter.ReaderCallback {
     private fun setupBackButton() {
         binding.btnBack.setOnClickListener {
             viewModel.resetData()
-            val intent = Intent(this, EventosActivity::class.java)
+            val intent = Intent(this, SelectorLocalidadActivity::class.java)
             startActivity(intent)
             finish()
         }

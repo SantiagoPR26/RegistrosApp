@@ -97,48 +97,85 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <RadioGroup
-                android:id="@+id/LocalidadRadioGroup"
-
-                android:layout_width="300dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView5">
 
-                <RadioButton
-                    android:id="@+id/RadioButton1"
-                    style="@style/CustomRadioButtonStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:text="GENERAL" />
+                <!-- RadioGroup simplificado -->
+                <RadioGroup
+                    android:id="@+id/LocalidadRadioGroup"
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                <RadioButton
-                    android:id="@+id/RadioButton2"
-                    style="@style/CustomRadioButtonStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:text="VIP" />
+                    <RadioButton
+                        android:id="@+id/RadioButton1"
+                        style="@style/CustomRadioButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:text="GENERAL"/>
 
-                <RadioButton
-                    android:id="@+id/RadioButton3"
-                    style="@style/CustomRadioButtonStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:text="BACKSTAGE" />
+                    <RadioButton
+                        android:id="@+id/RadioButton2"
+                        style="@style/CustomRadioButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:text="VIP"/>
 
-                <RadioButton
-                    android:id="@+id/RadioButton4"
-                    style="@style/CustomRadioButtonStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:text="ARTISTAS" />
+                    <RadioButton
+                        android:id="@+id/RadioButton3"
+                        style="@style/CustomRadioButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:text="BACKSTAGE"/>
 
-            </RadioGroup>
+                    <RadioButton
+                        android:id="@+id/RadioButton4"
+                        style="@style/CustomRadioButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:text="ARTISTAS"/>
+                </RadioGroup>
+
+                <!-- TextViews de cantidad fuera del RadioGroup -->
+                <TextView
+                    android:id="@+id/tvCantGeneral"
+                    style="@style/TextAppearance.AppCompat.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Registradas GENERAL: 0"/>
+
+                <TextView
+                    android:id="@+id/tvCantVip"
+                    style="@style/TextAppearance.AppCompat.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Registradas VIP: 0"/>
+
+                <TextView
+                    android:id="@+id/tvCantBackstage"
+                    style="@style/TextAppearance.AppCompat.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Registradas BACKSTAGE: 0"/>
+
+                <TextView
+                    android:id="@+id/tvCantArtistas"
+                    style="@style/TextAppearance.AppCompat.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Registradas ARTISTAS: 0"/>
+            </LinearLayout>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

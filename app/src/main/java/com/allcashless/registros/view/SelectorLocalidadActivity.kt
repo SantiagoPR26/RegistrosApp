@@ -2,6 +2,7 @@ package com.allcashless.registros.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -32,6 +33,8 @@ class SelectorLocalidadActivity : AppCompatActivity() {
         setupViews()
         setupRadioButtons()
         setupRegistrarButton()
+        setupBackButton()
+        setupObservers()
     }
 
 
@@ -72,6 +75,34 @@ class SelectorLocalidadActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun setupBackButton() {
+        binding.btnBack.setOnClickListener {
+            val intent = Intent(this, EventosActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+    }
+
+    private fun setupObservers() {
+        viewModel.contadores.observe(this) { contadoresMap ->
+            binding.tvCantGeneral.text = "Registradas GENERAL: ${contadoresMap[1L] ?: 0}"
+            binding.tvCantVip.text = "Registradas VIP: ${contadoresMap[2L] ?: 0}"
+            binding.tvCantBackstage.text = "Registradas BACKSTAGE: ${contadoresMap[3L] ?: 0}"
+            binding.tvCantArtistas.text = "Registradas ARTISTAS: ${contadoresMap[4L] ?: 0}"
+        }
+
+        viewModel.loading.observe(this) { isLoading ->
+            binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+        }
+
+        viewModel.error.observe(this) { errorMessage ->
+            errorMessage?.let {
+                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
 
 
 }
