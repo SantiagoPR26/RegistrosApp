@@ -11,7 +11,7 @@ import kotlin.apply
 import kotlin.jvm.java
 
 object RetrofitClient{
-    internal const val BASE_URL = "http://192.168.0.5:8090/api/"
+    internal const val BASE_URL = "http://back.allcashlesscol.com/api/acreditaciones/"
     internal const val EVENTO_AT_BASE_URL = "https://back2.allticketscol.com/api/eventos/"
     internal const val USUARIOS_AT_BASE_URL = "https://back.allticketscol.com/api/usuarios/"
     internal const val AUTH_AT_BASE_URL = "https://back.allticketscol.com/api/security/"
@@ -66,7 +66,6 @@ object RetrofitClient{
 
 
     val accesosApiService: AccesosApiService = retrofit.create(AccesosApiService::class.java)
-    val recargasApiService: RecargasApiService = retrofit.create(RecargasApiService::class.java)
     val eventoATApiService: EventoATApiService = retrofitEventoAT.create(EventoATApiService::class.java)
     val usuarioATApiService: UsuariosATApiService = retrofitUsuarioAT.create(UsuariosATApiService::class.java)
     val oauthApiService: OauthApiService = retrofitAuthAT.create(OauthApiService::class.java)

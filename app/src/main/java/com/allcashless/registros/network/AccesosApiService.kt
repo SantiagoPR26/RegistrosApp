@@ -9,7 +9,7 @@ import retrofit2.http.Query
 
 interface AccesosApiService {
 
-    @POST("acreditaciones/acreditaciones/crear/{codigoNFC}")
+    @POST("acreditaciones/crear/{codigoNFC}")
     suspend fun crearAcceso(@Path("codigoNFC") codigoNFC: String,
                                   @Query("pId") pId: Long,
                             @Query("localidadId") localidadId: Long): Response<Acceso>
